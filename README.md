@@ -1,18 +1,17 @@
-# backbone-js-snippets README
+# Backbone JS Snippets
 
 A snippet collection to save you time while coding or researching documentation when working with Backbone Js.
-\!\[feature 1\]\(media/video1.gif\)
 
 ## Features
 
 This snippet collection has over 50 code snippets available.
 
-Every snippet is well documented from the official Backbone documentation (http://backbonejs.org/#Events). 
+Every snippet is well documented from the official Backbone documentation (http://backbonejs.org). 
 
 
-So instead of looking it up on google or the backbone website (or directly in Backbone lib), you can just type 'bb' in your js file, choose the snippet you want to research and click the info icon.
+So instead of looking it up on google or backbone website (or even directly in Backbone lib), you can just type 'bb' in your js file, choose the snippet you want to research and click the info icon.
 
-\!\[feature 1\]\(media/video2.gif\)
+![feature 1](media/video2.gif)
 
 ## Release Notes 
 
@@ -82,7 +81,6 @@ Initial release of 51 documented Backbone code snippets.
 
 ### For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* [Github page](https://github.com/IoanaApetrei/BackboneSnippets)
 
 **Enjoy!**
