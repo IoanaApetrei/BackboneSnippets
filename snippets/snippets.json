@@ -1,0 +1,410 @@
+{
+// Backbone snippets
+// Events 
+	"Event on": {
+		"prefix": "bbEventOn",
+		"body": [
+			"${object}.on('${event}', ${callback}, ${context});"
+		],
+		"description": "Bind a callback function to an object. The callback will be invoked whenever the event is fired. If you have a large number of different events on a page, the convention is to use colons to namespace them: 'poll:start', or 'change:selection'. The event string may also be a space-delimited list of several events."
+	},
+	"Event off": {
+		"prefix": "bbEventOff",
+		"body": [
+			"${object}.off('${event}', ${callback}, ${context});"
+		],
+		"description": "Remove a previously-bound callback function from an object. If no context is specified, all of the versions of the callback with different contexts will be removed. If no callback is specified, all callbacks for the event will be removed. If no event is specified, callbacks for all events will be removed."
+	},
+	"Event trigger": {
+		"prefix": "bbEventTrigger",
+		"body": [
+			"${object}.trigger('${event}', {${args}});"
+		],
+		"description": "Trigger callbacks for the given event, or space-delimited list of events. Subsequent arguments to trigger will be passed along to the event callbacks."
+	},
+	"Event once": {
+		"prefix": "bbEventOnce",
+		"body": [
+			"${object}.once('${event}', ${callback}, ${context});"
+		],
+		"description": "Just like on, but causes the bound callback to fire only once before being removed. Handy for saying 'the next time that X happens, do this'. When multiple events are passed in using the space separated syntax, the event will fire once for every event you passed in, not once for a combination of all events."
+	},
+	"Event listenTo": {
+		"prefix": "bbEventListenTo",
+		"body": [
+			"${object}.listenTo(${otherObject}, '${event}', ${callback});"
+		],
+		"description": "Tell an object to listen to a particular event on an other object. The advantage of using this form, instead of other.on(event, callback, object), is that listenTo allows the object to keep track of the events, and they can be removed all at once later on. The callback will always be called with object as context."
+	},
+	"Event stopListening": {
+		"prefix": "bbEventStopListening",
+		"body": [
+			"${object}.stopListening(${otherObject}, '${event}', ${callback});"
+		],
+		"description": "Tell an object to stop listening to events. Either call stopListening with no arguments to have the object remove all of its registered callbacks ... or be more precise by telling it to remove just the events it's listening to on a specific object, or a specific event, or just a specific callback."
+	},
+	"Event listenToOnce": {
+		"prefix": "bbEventListenToOnce",
+		"body": [
+			"${object}.listenToOnce(${otherObject}, '${event}', ${callback});"
+		],
+		"description": "Just like listenTo, but causes the bound callback to fire only once before being removed."
+	},
+// Model methods
+	"Model extend": {
+		"prefix": "bbModelExt",
+		"body": [
+			"Backbone.Model.extend({${properties}}, ${classProperties});"
+		],
+		"description": "To create a Model class of your own, you extend Backbone.Model and provide instance properties, as well as optional classProperties to be attached directly to the constructor function."
+	},
+	"Model get": {
+		"prefix": "bbModelGet",
+		"body": [
+			"${model}.get(${attribute});"
+		],
+		"description": "Get the current value of an attribute from the model. For example: note.get('title')"
+	},
+	"Model escape": {
+		"prefix": "bbModelEscape",
+		"body": [
+			"${model}.escape(${attribute});"
+		],
+		"description": "Similar to get, but returns the HTML-escaped version of a model's attribute. If you're interpolating data from the model into HTML, using escape to retrieve attributes will prevent XSS attacks."
+	},
+	"Model set": {
+		"prefix": "bbModelSet",
+		"body": [
+			"${model}.set({",
+			"\t$1: $2",
+			"},${options}); "
+		],
+		"description": "Set a hash of attributes (one or many) on the model. If any of the attributes change the model's state, a 'change' event will be triggered on the model. Change events for specific attributes are also triggered, and you can bind to those as well, for example: change:title, and change:content. You may also pass individual keys and values."
+	},
+	"Model unset": {
+		"prefix": "bbModelUnset",
+		"body": "${model}.unset(${attribute}, ${options});",
+		"description": "Remove an attribute by deleting it from the internal attributes hash. Fires a 'change' event unless silent is passed as an option."
+	},
+	"Model clear": {
+		"prefix": "bbModelClear",
+		"body": [
+			"${model}.clear(${options});"
+		],
+		"description": "Removes all attributes from the model, including the id attribute. Fires a 'change' event unless silent is passed as an option."
+	},
+	"Model has": {
+		"prefix": "bbModelHas",
+		"body": [
+			"if (${model}.has('${property'})) {",
+			"\t$0",
+			"};"
+		],
+		"description": "Returns true if the attribute is set to a non-null or non-undefined value."
+	},
+	"Model destroy": {
+		"prefix": "bbModelDestroy",
+		"body": [
+			"${model}.destroy({",
+			"\tsuccess: function(${model}, response) {",
+			"\t\t$1",
+			"\t},",
+			"\terror: function() {",
+			"\t\t$2",
+			"\t}",
+			"});"
+		],
+		"description": "Destroys the model on the server by delegating an HTTP DELETE request to Backbone.sync. Returns a jqXHR object, or false if the model isNew. Accepts success and error callbacks in the options hash, which will be passed (model, response, options). Triggers a 'destroy' event on the model, which will bubble up through any collections that contain it, a 'request' event as it begins the Ajax request to the server, and a 'sync' event, after the server has successfully acknowledged the model's deletion. Pass {wait: true} if you'd like to wait for the server to respond before removing the model from the collection."
+	},
+	"Model attributes": {
+		"prefix": "bbModelAttr",
+		"body": [
+			"${model}.attributes"
+		],
+		"description": "The attributes property is the internal hash containing the model's state — usually (but not necessarily) a form of the JSON object representing the model data on the server. It's often a straightforward serialization of a row from the database, but it could also be client-side computed state."
+	},
+	"Model changed": {
+		"prefix": "bbModelChanged",
+		"body": [
+			"${model}.changed"
+		],
+		"description": "The changed property is the internal hash containing all the attributes that have changed since its last set. Please do not update changed directly since its state is internally maintained by set. A copy of changed can be acquired from changedAttributes."
+	},
+	"Model toJSON": {
+		"prefix": "bbModelJSON",
+		"body": [
+			"${model}.toJSON(${options});"
+		],
+		"description": "Return a shallow copy of the model's attributes for JSON stringification."
+	},
+	"Model sync": {
+		"prefix": "bbModelSync",
+		"body": [
+			"${model}.sync(${method}, ${model}, ${options});"
+		],
+		"description": "Backbone.sync is the function that Backbone calls every time it attempts to read or save a model to the server. By default, it uses jQuery.ajax to make a RESTful JSON request and returns a jqXHR. You can override it in order to use a different persistence strategy, such as WebSockets, XML transport, or Local Storage."
+	},
+	"Model fetch": {
+		"prefix": "bbModelFetch",
+		"body": [
+			"${model}.fetch(${options});"
+		],
+		"description": "Merges the model's state with attributes fetched from the server by delegating to Backbone.sync. Returns a jqXHR. Useful if the model has never been populated with data, or if you'd like to ensure that you have the latest server state. Triggers a 'change' event if the server's state differs from the current attributes. fetch accepts success and error callbacks in the options hash, which are both passed (model, response, options) as arguments."
+	},
+	"Model save": {
+		"prefix": "bbModelSave",
+		"body": [
+			"${model}.save(${attributes},{",
+			"\tsuccess: function(model, response) {",
+			"\t\t$1",
+			"\t},",
+			"\terror: function() {",
+			"\t\t$2",
+			"\t}",
+			"});"
+		],
+		"description": "Save a model to your database (or alternative persistence layer), by delegating to Backbone.sync. Returns a jqXHR if validation is successful and false otherwise. The attributes hash (as in set) should contain the attributes you'd like to change — keys that aren't mentioned won't be altered — but, a complete representation of the resource will be sent to the server. As with set, you may pass individual keys and values instead of a hash. If the model has a validate method, and validation fails, the model will not be saved. If the model isNew, the save will be a 'create' (HTTP POST), if the model already exists on the server, the save will be an 'update' (HTTP PUT)."
+	},
+	// Underscore methods
+	"Model changed attributes": {
+		"prefix": "bbModelChangedAttr",
+		"body": [
+			"${model}.changedAttributes(${attributes})"
+		],
+		"description": "Retrieve a hash of only the model's attributes that have changed since the last set, or false if there are none. Optionally, an external attributes hash can be passed in, returning the attributes in that hash which differ from the model. This can be used to figure out which portions of a view should be updated, or what calls need to be made to sync the changes to the server."
+	},
+	"Model previous": {
+		"prefix": "bbModelPrev",
+		"body": [
+			"${model}.previous(${attribute})"
+		],
+		"description": "During a 'change' event, this method can be used to get the previous value of a changed attribute."
+	},
+	"Model previous attributes": {
+		"prefix": "bbModelPrevAttr",
+		"body": [
+			"${model}.previousAttributes()"
+		],
+		"description": "Return a copy of the model's previous attributes. Useful for getting a diff between versions of a model, or getting back to a valid state after an error occurs."
+	},
+	// Backbone Collection methods
+	"Collection extend": {
+		"prefix": "bbColExtend",
+		"body": [
+			"Backbone.Collection.extend(${properties}, ${classProperties});"
+		],
+		"description": "To create a Collection class of your own, extend Backbone.Collection, providing instance properties, as well as optional classProperties to be attached directly to the collection's constructor function."
+	},
+	"Collection model": {
+		"prefix": "bbColSync",
+		"body": "${collection}.model(${attrs}, ${options});",
+		"description": "Override this property to specify the model class that the collection contains. If defined, you can pass raw attributes objects (and arrays) to add, create, and reset, and the attributes will be converted into a model of the proper type."
+	},
+	"Collection sync": {
+		"prefix": "bbColSync",
+		"body": "${collection}.sync(${method}, ${collection}, ${options});",
+		"description": "Backbone.sync is the function that Backbone calls every time it attempts to read or save a model to the server. By default, it uses jQuery.ajax to make a RESTful JSON request and returns a jqXHR. You can override it in order to use a different persistence strategy, such as WebSockets, XML transport, or Local Storage."
+	},
+	// Underscore methods
+	"Collection add": {
+		"prefix": "bbColAdd",
+		"body": [
+			"${collection}.add(${models}, ${options});"
+		],
+		"description": "Add a model (or an array of models) to the collection, firing an 'add' event for each model, and an 'update' event afterwards. If a model property is defined, you may also pass raw attributes objects, and have them be vivified as instances of the model. Returns the added (or preexisting, if duplicate) models. Pass {at: index} to splice the model into the collection at the specified index. If you're adding models to the collection that are already in the collection, they'll be ignored, unless you pass {merge: true}, in which case their attributes will be merged into the corresponding models, firing any appropriate 'change' events."
+	},
+	"Collection get": {
+		"prefix": "bbColGet",
+		"body": [
+			"${collection}.get(${id});"
+		],
+		"description": "Get a model from a collection, specified by an id, a cid, or by passing in a model."
+	},
+	"Collection at": {
+		"prefix": "bbColAt",
+		"body": [
+			"${collection}.at(${index});"
+		],
+		"description": "Get a model from a collection, specified by index. Useful if your collection is sorted, and if your collection isn't sorted, at will still retrieve models in insertion order. When passed a negative index, it will retrieve the model from the back of the collection."
+	},
+	"Collection push": {
+		"prefix": "bbColPush",
+		"body": [
+			"${collection}.push(${model}, {${options}});"
+		],
+		"description": "Add a model at the end of a collection. Takes the same options as add."
+	},
+	"Collection remove": {
+		"prefix": "bbColRemove",
+		"body": [
+			"${collection}.remove(${models}, ${options});"
+		],
+		"description": "Remove a model (or an array of models) from the collection, and return them. Each model can be a Model instance, an id string or a JS object, any value acceptable as the id argument of collection.get. Fires a 'remove' event for each model, and a single 'update' event afterwards, unless {silent: true} is passed. The model's index before removal is available to listeners as options.index."
+	},
+	"Collection set": {
+		"prefix": "bbColSet",
+		"body": [
+			"${collection}.set(${models}, ${options});"
+		],
+		"description": "The set method performs a 'smart' update of the collection with the passed list of models. If a model in the list isn't yet in the collection it will be added; if the model is already in the collection its attributes will be merged; and if the collection contains any models that aren't present in the list, they'll be removed. All of the appropriate 'add', 'remove', and 'change' events are fired as this happens. Returns the touched models in the collection. If you'd like to customize the behavior, you can disable it with options: {add: false}, {remove: false}, or {merge: false}."
+	},
+	"Collection pop": {
+		"prefix": "bbColPop",
+		"body": [
+			"${collection}.pop(${options});"
+		],
+		"description": "Remove and return the last model from a collection. Takes the same options as remove."
+	},
+	"Collection unshift": {
+		"prefix": "bbColUnshift",
+		"body": [
+			"${collection}.unshift(${model}, ${options});"
+		],
+		"description": "Add a model at the beginning of a collection. Takes the same options as add."
+	},
+	"Collection shift": {
+		"prefix": "bbColShift",
+		"body": [
+			"${collection}.shift(${options});"
+		],
+		"description": "Remove and return the first model from a collection. Takes the same options as remove."
+	},
+	"Collection slice": {
+		"prefix": "bbColSlice",
+		"body": [
+			"${collection}.slice(${begin}, ${end});"
+		],
+		"description": "Return a shallow copy of this collection's models, using the same options as native Array#slice."
+	},
+	"Collection sort": {
+		"prefix": "bbColSort",
+		"body": [
+			"${collection}.sort({${options}});"
+		],
+		"description": "Force a collection to re-sort itself. You don't need to call this under normal circumstances, as a collection with a comparator will sort itself whenever a model is added. To disable sorting when adding a model, pass {sort: false} to add. Calling sort triggers a 'sort' event on the collection."
+	},
+	"Collection pluck": {
+		"prefix": "bbColPluck",
+		"body": [
+			"${collection}.pluck(${attribute});"
+		],
+		"description": "Pluck an attribute from each model in the collection. Equivalent to calling map and returning a single attribute from the iterator."
+	},
+	"Collection where": {
+		"prefix": "bbColWhere",
+		"body": [
+			"${collection}.where({${attributes}});"
+		],
+		"description": "Return an array of all the models in a collection that match the passed attributes. Useful for simple cases of filter."
+	},
+	"Collection find where": {
+		"prefix": "bbColFindWhere",
+		"body": [
+			"${collection}.findWhere({${attributes}});"
+		],
+		"description": "Just like where, but directly returns only the first model in the collection that matches the passed attributes."
+	},
+	"Collection url": {
+		"prefix": "bbColUrl",
+		"body": [
+			"${collection}.url(${url});"
+		],
+		"description": "Set the url property (or function) on a collection to reference its location on the server. Models within the collection will use url to construct URLs of their own."
+	},
+	"Collection parse": {
+		"prefix": "bbColParse",
+		"body": [
+			"parse: function(response) {",
+			"\treturn $1",
+			"}"
+		],
+		"description": "parse is called by Backbone whenever a collection's models are returned by the server, in fetch. The function is passed the raw response object, and should return the array of model attributes to be added to the collection. The default implementation is a no-op, simply passing through the JSON response. Override this if you need to work with a preexisting API, or better namespace your responses."
+	},
+	"Collection clone": {
+		"prefix": "bbColClone",
+		"body": [
+			"${collection}.clone()"
+		],
+		"description": "Returns a new instance of the collection with an identical list of models."
+	},
+	"Collection fetch": {
+		"prefix": "bbColFetch",
+		"body": [
+			"${collection}.fetch({${options}})"
+		],
+		"description": "Fetch the default set of models for this collection from the server, setting them on the collection when they arrive. The options hash takes success and error callbacks which will both be passed (collection, response, options) as arguments. When the model data returns from the server, it uses set to (intelligently) merge the fetched models, unless you pass {reset: true}, in which case the collection will be (efficiently) reset. Delegates to Backbone.sync under the covers for custom persistence strategies and returns a jqXHR. The server handler for fetch requests should return a JSON array of models."
+	},
+	"Collection create": {
+		"prefix": "bbColCreate",
+		"body": [
+			"${collection}.create({${attributes}}, {${options}})"
+		],
+		"description": "Convenience to create a new instance of a model within a collection. Equivalent to instantiating a model with a hash of attributes, saving the model to the server, and adding the model to the set after being successfully created. Returns the new model. If client-side validation failed, the model will be unsaved, with validation errors. In order for this to work, you should set the model property of the collection. The create method can accept either an attributes hash or an existing, unsaved model object."
+	},
+	// Backbone view
+	"View extend": {
+		"prefix": "bbViewExt",
+		"body": [
+			"Backbone.View.extend({",
+			"\ttagName: '${tagname:Enter tag name}',",
+			"\tel: '${el:Enter element name}',",
+			"\tevents: {",
+			"\t\t'${1:event type}': '${2:event name}'",
+			"\t},",
+			"\tinitialize: function() {",
+			"\t\t'${3:init function here}'",
+			"\t},",
+			"\trender: function() {",
+			"\t\t'${4:render function here}'",
+			"\t}",
+			"});"
+		],
+		"description": "Get started with views by creating a custom view class. You'll want to override the render function, specify your declarative events, and perhaps the tagName, className, or id of the View's root element."
+	},
+	"View remove": {
+		"prefix": "bbViewRemove",
+		"body": [
+			"${view}.remove();"
+		],
+		"description": "Removes a view and its el from the DOM, and calls stopListening to remove any bound events that the view has listenTo'd."
+	},
+	//  Backbone router
+	"Router extend": {
+		"prefix" :"bbRouterExt",
+		"body": [
+			"Backbone.Router.extend({${properties}}, {${classProperties}});"
+		],
+		"description": " Define actions that are triggered when certain URL fragments are matched, and provide a routes hash that pairs routes to actions. Note that you'll want to avoid using a leading slash in your route definitions:"
+	},
+	"Router route": {
+		"prefix": "bbRouterRoute",
+		"body": [
+			"${router}.route(${route}, ${name}, ${callback});"
+		],
+		"description": "Manually create a route for the router, The route argument may be a routing string or regular expression. Each matching capture from the route or regular expression will be passed as an argument to the callback. The name argument will be triggered as a 'route:name' event whenever the route is matched. If the callback argument is omitted router[name] will be used instead. Routes added later may override previously declared routes."
+	},
+	"Router navigate": {
+		"prefix": "bbRouterNavigate",
+		"body": [
+			"${router}.navigate('${fragment}', {${options}});"
+		],
+		"description": "Whenever you reach a point in your application that you'd like to save as a URL, call navigate in order to update the URL. If you also wish to call the route function, set the trigger option to true. To update the URL without creating an entry in the browser's history, set the replace option to true."
+	},
+	"Router execute": {
+		"prefix": "bbRouterExec",
+		"body": [
+			"execute: function(callback, args, name) {",
+			"\t$1",
+			"}"
+		],
+		"description": "This method is called internally within the router, whenever a route matches and its corresponding callback is about to be executed. Return false from execute to cancel the current transition. Override it to perform custom parsing or wrapping of your routes, for example, to parse query strings before handing them to your route callback, like so:"
+	},
+	// Backbone History
+	"History start": {
+		"prefix": "bbHistoryStart",
+		"body": [
+			"Backbone.history.start({${options}});"
+		],
+		"description": "History serves as a global router (per frame) to handle hashchange events or pushState, match the appropriate route, and trigger callbacks. You shouldn't ever have to create one of these yourself since Backbone.history already contains one."
+	}
+}

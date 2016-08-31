@@ -1,0 +1,21 @@
+{
+    "name": "backbone-js-snippets",
+    "displayName": "Backbone JS snippets",
+    "description": "A collection of Backbone and Underscore JS snippets. Type 'bb' to get a list of availlable snippets.",
+    "version": "0.0.1",
+    "publisher": "ioanaapetrei",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/snippets.json"
+            }
+        ]
+    }
+}
