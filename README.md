@@ -19,6 +19,8 @@ So instead of looking it up on google or backbone website (or even directly in B
 
 Initial release of 51 documented Backbone code snippets.
 
+### Improvements planned for next version
+
 -----------------------------------------------------------------------------------------------------------
 | Type  | Snippet  |
 |---|---|
@@ -78,6 +80,9 @@ Initial release of 51 documented Backbone code snippets.
 |---|---|
 | History  | start  |
 |---|---|
+
+## Contact
+Send an email to ioanaadelinaapetrei+backbonesnippets@gmail.com
 
 ### For more information
 
